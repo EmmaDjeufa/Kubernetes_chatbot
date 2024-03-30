@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot-frontend-deployment
+  namespace: chatbot-ns
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: chatbot-frontend
+  template:
+    metadata:
+      labels:
+        app: chatbot-frontend
+    spec:
+      containers:
+      - name: chatbot-ihm
+        image: rodriguez003/chatbot:2.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: BOTAPI_HOST
+          value: chatbot-backend-service
+      restartPolicy: Always 

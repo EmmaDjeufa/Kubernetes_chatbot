@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot-backend-deployment
+  namespace: chatbot-ns
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: chatbot-backend
+  template:
+    metadata:
+      labels:
+        app: chatbot-backend
+    spec:
+      containers:
+        - name: chatbot-api
+          image: rodriguez003/springrestapi:2.0  
+          ports:
+          - containerPort: 8080  
+          env:
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: chatbot-secret
+                  key: OPENAI_API_KEY
+            - name: OPENAI_MODEL
+              valueFrom:
+                configMapKeyRef: 
+                  name: chatbot-cm
+                  key: OPENAI_MODEL
+            - name: OPENAI_API_URL
+              valueFrom:
+                configMapKeyRef: 
+                  name: chatbot-cm
+                  key: OPENAI_API_URL
+          volumeMounts:
+            - name: secret-config
+              readOnly: true
+              mountPath: "/etc/secret-volume"
+            - name: config-volume
+              mountPath: /etc/config
+      volumes:
+          - name: secret-config
+            secret:
+              secretName: chatbot-secret
+          - name: config-volume
+            configMap:         
+              name: chatbot-cm    
+      restartPolicy: Always

@@ -1,0 +1,9 @@
+resources:
+  - namespace.yml
+  - chatbot_configmap.yml
+  - chatbot-secrets.yml
+  - chatbot-api-deployment.yml
+  - chatbot-api-service.yml
+  - chatbot-ihm-deployment.yml
+  - chatbot-ihm-service.yml
+  - ingress-chatbot.yml
