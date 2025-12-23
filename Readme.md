@@ -1,4 +1,4 @@
-# Kubernetes_chatbot – Kubernetes Deployment for a Chatbot
+# Kubernetes_chatbot 
 
 A Kubernetes infrastructure project that deploys a chatbot application using Kubernetes manifests. This repository provides everything needed to run a chatbot (API + UI) in a Kubernetes cluster (like Minikube or any Kubernetes environment).
 
